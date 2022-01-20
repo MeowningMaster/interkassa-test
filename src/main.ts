@@ -1,13 +1,22 @@
 import "./imports/dotenv.ts";
-import { Application } from "./imports/oak.ts";
+import { Application, Router } from "./imports/oak.ts";
 
 const env = Deno.env.toObject();
 const port = Number(env.PORT);
 
 const app = new Application();
+const router = new Router();
 
-app.use((ctx) => {
-    ctx.response.body = "Hello world!";
+const interkassaVerification = {
+    filename: "61967d8218feee26d32a0798.txt",
+    key: "c638aa4fc2227aa43cc0c6000ef2616c",
+};
+
+router.get(`/${interkassaVerification.filename}`, (ctx) => {
+    ctx.response.body = interkassaVerification.key;
+    return;
 });
 
+app.use(router.routes());
+app.use(router.allowedMethods());
 await app.listen({ port });
