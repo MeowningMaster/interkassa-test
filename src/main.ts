@@ -1,8 +1,13 @@
-import "https://deno.land/x/dotenv@v3.1.0/load.ts";
-import { serve } from "https://deno.land/std@0.121.0/http/server.ts";
+import "./imports/dotenv.ts";
+import { Application } from "./imports/oak.ts";
 
 const env = Deno.env.toObject();
 const port = Number(env.PORT);
 
-import { handler } from "./components/App.tsx";
-serve(handler, { port });
+const app = new Application();
+
+app.use((ctx) => {
+    ctx.response.body = "Hello world!";
+});
+
+await app.listen({ port });

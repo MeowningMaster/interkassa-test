@@ -4,7 +4,8 @@
 /// <reference lib="dom.asynciterable" />
 /// <reference lib="deno.ns" />
 
-import { h, renderSSR } from "https://deno.land/x/nano_jsx@v0.0.20/mod.ts";
+import { h, renderSSR } from "../imports/nano.ts";
+import { Context } from "../imports/oak.ts";
 
 function App() {
     return (
@@ -19,7 +20,7 @@ function App() {
     );
   }
 
-export function handler(req: Request) {
+export function handler(_ctx: Context) {
     const html = renderSSR(<App />);
     return new Response(html, {
         headers: {
