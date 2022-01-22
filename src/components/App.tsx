@@ -23,7 +23,7 @@ function PaymentForm(props: InterkassaPaymentRequest) {
 
 function App() {
   const paymentProps: InterkassaPaymentRequest = {
-    ik_co_id: "61967d8218feee26d32a0798",
+    ik_co_id: "61eb4664a9d4f77b7f55e1a4",
     ik_pm_no: nanoid(),
     ik_cur: "UAH",
     ik_am: "115",
