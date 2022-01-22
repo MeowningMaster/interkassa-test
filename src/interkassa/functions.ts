@@ -3,8 +3,8 @@ import {
   InterkassaPaymentAlertValidationError,
 } from "./errors.ts";
 import { InterkassaPaymentAlert, InterkassaPaymentRequest } from "./types.ts";
-import { Sha256 } from "https://deno.land/std/hash/sha256.ts";
-import * as base64 from "https://deno.land/std@0.122.0/encoding/base64.ts";
+import { Sha256 } from "i/sha256.ts";
+import * as base64 from "i/base64.ts";
 
 const interkassaIps = ["34.77.232.58", "35.240.117.224", "35.233.69.55"];
 const assertInterkassaIp = (ip: string) => {

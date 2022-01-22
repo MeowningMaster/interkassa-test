@@ -1,7 +1,9 @@
-import { React, ReactDOMServer } from "../imports/react.ts";
-import { Context } from "../imports/oak.ts";
+import React from "i/react.ts";
+import ReactDOMServer from "i/react-dom/server.ts";
+import { Context } from "i/oak.ts";
 import { InterkassaPaymentRequest } from "../interkassa/types.ts";
 import { signPaymentRequest } from "../interkassa/functions.ts";
+import { nanoid } from "i/nanoid.ts";
 
 function PaymentForm(props: InterkassaPaymentRequest) {
   return (
@@ -22,7 +24,7 @@ function PaymentForm(props: InterkassaPaymentRequest) {
 function App() {
   const paymentProps: InterkassaPaymentRequest = {
     ik_co_id: "61967d8218feee26d32a0798",
-    ik_pm_no: "ID_32421",
+    ik_pm_no: nanoid(),
     ik_cur: "UAH",
     ik_am: "115",
     ik_desc: "Описание",

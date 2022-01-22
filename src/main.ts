@@ -1,6 +1,6 @@
-import "./imports/dotenv.ts";
+import "i/dotenv/load.ts";
 import { appHandler } from "./components/App.tsx";
-import { Application, Router } from "./imports/oak.ts";
+import { Application, Router } from "i/oak.ts";
 
 const env = Deno.env.toObject();
 const port = Number(env.PORT);

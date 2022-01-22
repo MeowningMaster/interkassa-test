@@ -1,4 +1,4 @@
-import * as yup from "../imports/yup.ts";
+import * as yup from "i/yup.ts";
 
 const ik_co_id = yup
   .string()
