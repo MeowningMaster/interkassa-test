@@ -17,7 +17,10 @@ router
   .get(`/${interkassaVerification.filename}`, (ctx) => {
     ctx.response.body = interkassaVerification.key;
   })
-  .get("/", appHandler);
+  .get("/", appHandler)
+  .get("/:context", (ctx) => {
+      ctx.response.body = ctx.params.context;
+  });
 
 app.use(router.routes());
 app.use(router.allowedMethods());

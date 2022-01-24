@@ -4,6 +4,7 @@ import { Context } from "i/oak.ts";
 import { InterkassaPaymentRequest } from "../interkassa/types.ts";
 import { signPaymentRequest } from "../interkassa/functions.ts";
 import { nanoid } from "i/nanoid.ts";
+import { consts } from "src/consts.ts";
 
 function PaymentForm(props: InterkassaPaymentRequest) {
   return (
@@ -31,15 +32,15 @@ function App() {
     ik_act: undefined,
     ik_cli: undefined,
     ik_exp: undefined,
-    ik_fal_u: undefined,
-    ik_ia_u: undefined,
     ik_loc: undefined,
     ik_ltm: undefined,
     ik_pay_token: undefined,
-    ik_pnd_u: undefined,
-    ik_sign: undefined,
     ik_sub_acc_no: undefined,
-    ik_suc_u: undefined,
+    ik_ia_u: consts.URLS.INTERACTION,
+    ik_suc_u: consts.URLS.SUCCESS,
+    ik_fal_u: consts.URLS.FAIL,
+    ik_pnd_u: consts.URLS.PENDING,
+    ik_sign: undefined,
   };
   signPaymentRequest(paymentProps);
 

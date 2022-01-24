@@ -1,5 +1,6 @@
 {
     "imports": {
+        "src/": "./src/",
         "i/nanoid.ts": "https://deno.land/x/nanoid/mod.ts",
         "i/oak.ts": "https://deno.land/x/oak/mod.ts",
         "i/sha256.ts": "https://deno.land/std@0.122.0/hash/sha256.ts",
