@@ -1,9 +1,8 @@
-import "i/dotenv/load.ts";
 import { appHandler } from "./components/App.tsx";
 import { Application, Router } from "i/oak.ts";
+import { consts } from "src/consts.ts";
 
-const env = Deno.env.toObject();
-const port = Number(env.PORT);
+const port = Number(consts.PORT);
 
 const app = new Application();
 const router = new Router();
@@ -19,7 +18,9 @@ router
   })
   .get("/", appHandler)
   .get("/:context", (ctx) => {
-      ctx.response.body = ctx.params.context;
+      const context = ctx.params.context;
+      console.log(context, ctx.request.body);
+      ctx.response.body = context;
   });
 
 app.use(router.routes());

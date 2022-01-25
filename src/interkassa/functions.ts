@@ -5,6 +5,7 @@ import {
 import { InterkassaPaymentAlert, InterkassaPaymentRequest } from "./types.ts";
 import { Sha256 } from "i/sha256.ts";
 import * as base64 from "i/base64.ts";
+import {consts} from "src/consts.ts";
 
 const interkassaIps = ["34.77.232.58", "35.240.117.224", "35.233.69.55"];
 const assertInterkassaIp = (ip: string) => {
@@ -52,7 +53,7 @@ export const signPaymentRequest = (req: InterkassaPaymentRequest) => {
     .forEach(function ([_key, value]) {
       params.push(value);
     });
-  params.push(Deno.env.get("INTERKASSA_SECRET_KEY"));
+  params.push(consts.INTERKASSA_SECRET_KEY);
   const paramsStr = params.join(":");
   const hashBuffer = new Sha256().update(paramsStr).arrayBuffer();
   const hashBase64 = base64.encode(hashBuffer);

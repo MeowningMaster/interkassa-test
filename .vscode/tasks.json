@@ -1,0 +1,12 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Watch",
+            "type": "deno",
+            "command": "run",
+            "args": ["-A", "--watch", "--import-map=import_map.json", "src/main.ts"],
+            "problemMatcher": ["$deno"]
+        }
+    ]   
+}
