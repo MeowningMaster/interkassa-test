@@ -53,7 +53,7 @@ export const signPaymentRequest = (req: InterkassaPaymentRequest) => {
     .forEach(function ([_key, value]) {
       params.push(value);
     });
-  params.push(consts.INTERKASSA_SECRET_KEY);
+  params.push(consts.INTERKASSA.KEYS.SECRET);
   const paramsStr = params.join(":");
   const hashBuffer = new Sha256().update(paramsStr).arrayBuffer();
   const hashBase64 = base64.encode(hashBuffer);

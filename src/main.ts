@@ -1,6 +1,7 @@
 import { appHandler } from "./components/App.tsx";
 import { Application, Router } from "i/oak.ts";
-import { consts } from "src/consts.ts";
+import { consts, interactionPath } from "src/consts.ts";
+import { checkPaymentAlert } from "./interkassa/functions.ts";
 
 const port = Number(consts.PORT);
 
@@ -17,12 +18,14 @@ router
     ctx.response.body = interkassaVerification.key;
   })
   .get("/", appHandler)
-  .get("/:context", (ctx) => {
-      const context = ctx.params.context;
-      console.log(context, ctx.request.body);
-      ctx.response.body = context;
+  .get("/:rt", (ctx) => {
+    ctx.response.body = ctx.params.rt;
+  })
+  .post(interactionPath, async (ctx) => {
+      console.log(await ctx.request.body().value);
   });
 
 app.use(router.routes());
 app.use(router.allowedMethods());
 await app.listen({ port });
+console.log(`Server started on ${consts.PORT}`);

@@ -36,10 +36,10 @@ function App() {
     ik_ltm: undefined,
     ik_pay_token: undefined,
     ik_sub_acc_no: undefined,
-    ik_ia_u: consts.URLS.INTERACTION,
-    ik_suc_u: consts.URLS.SUCCESS,
-    ik_fal_u: consts.URLS.FAIL,
-    ik_pnd_u: consts.URLS.PENDING,
+    ik_ia_u: consts.INTERKASSA.URLS.INTERACTION,
+    ik_suc_u: consts.INTERKASSA.URLS.SUCCESS,
+    ik_fal_u: consts.INTERKASSA.URLS.FAIL,
+    ik_pnd_u: consts.INTERKASSA.URLS.PENDING,
     ik_sign: undefined,
   };
   signPaymentRequest(paymentProps);
