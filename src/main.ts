@@ -48,6 +48,7 @@ router
     const paymentAlert = Object.fromEntries(
       formParams.entries(),
     );
+    console.log("interaction", paymentAlert);
     const senderIp = getSenderIp(ctx.request);
     try {
       await checkPaymentAlert(paymentPropsToCheck, paymentAlert, senderIp);
