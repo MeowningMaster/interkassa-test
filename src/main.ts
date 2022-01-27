@@ -51,10 +51,11 @@ router
     const senderIp = getSenderIp(ctx.request);
     try {
       await checkPaymentAlert(paymentPropsToCheck, paymentAlert, senderIp);
+      ctx.response.status = 200;
     } catch (e) {
       console.log(e.message);
+      ctx.response.status = 500;
     }
-    ctx.response.status = 200;
   });
 
 app.use(router.routes());
