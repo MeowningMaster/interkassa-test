@@ -30,7 +30,7 @@ const url = yup.string().url();
 const ik_act = yup.string().oneOf(["process", "payways", "payway"]);
 const ik_sub_acc_no = yup.string().matches(/^[\w-]{1,32}$/);
 
-const interkassaPaymentRequest = yup.object({
+export const interkassaPaymentRequest = yup.object({
   ik_co_id,
   ik_pm_no,
   ik_cur,
@@ -57,14 +57,14 @@ export type InterkassaPaymentRequest = yup.Asserts<
   typeof interkassaPaymentRequest
 >;
 
-const interkassaPaymentAlert = yup.object({
+export const interkassaPaymentAlert = yup.object({
   ik_co_id,
   ik_pm_no,
   ik_desc,
-  ik_pw_via: yup.string(),
+  ik_pw_via: yup.string().required(),
   ik_am,
   ik_cur,
-  ik_act: ik_act.required(),
+  ik_act,
   ik_sign,
   //* Additional
   ik_inv_id: yup.string(),
@@ -85,3 +85,8 @@ const interkassaPaymentAlert = yup.object({
  * https://t.ly/PYoO
  */
 export type InterkassaPaymentAlert = yup.Asserts<typeof interkassaPaymentAlert>;
+
+/**
+ * Данные с нашего сервера для проверки
+ */
+export type PaymentDataToCheck = { ik_co_id: string; ik_am: string };
