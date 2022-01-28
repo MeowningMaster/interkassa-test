@@ -93,12 +93,20 @@ export const checkPaymentAlert = async (
     const alert = await assertPaymentAlertValidation(rawAlert);
     assertPaymentAlertSignature(alert);
 
-    for (const key in data) {
-      const our = data[key as keyof PaymentDataToCheck];
-      const their = alert[key as keyof PaymentDataToCheck];
-      if (our !== their) {
-        throw new InterkassaPaymentAlertIncorrectDataError(key, our, their);
-      }
+    if (data.ik_co_id !== alert.ik_co_id) {
+      throw new InterkassaPaymentAlertIncorrectDataError(
+        "ik_co_id",
+        data.ik_co_id,
+        alert.ik_co_id,
+      );
+    }
+
+    if (Number(data.ik_am) !== Number(alert.ik_am)) {
+      throw new InterkassaPaymentAlertIncorrectDataError(
+        "ik_am",
+        data.ik_am,
+        alert.ik_am,
+      );
     }
   } catch (e) {
     if (e instanceof InterkassaPaymentAlertError) {

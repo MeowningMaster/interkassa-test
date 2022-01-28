@@ -7,7 +7,7 @@ import {
 
 export const paymentPropsToCheck: PaymentDataToCheck = {
   ik_co_id: "61eb4664a9d4f77b7f55e1a4",
-  ik_am: "115.00", // always keep 2 places after decimal point
+  ik_am: "115",
 };
 
 export const paymentProps = (): InterkassaPaymentRequest => ({
