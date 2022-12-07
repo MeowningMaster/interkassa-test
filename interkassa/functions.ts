@@ -11,10 +11,10 @@ import {
   InterkassaPaymentRequest,
   PaymentDataToCheck,
 } from "./types.ts";
-import { Sha256 } from "i/sha256.ts";
-import * as base64 from "i/base64.ts";
-import { consts } from "src/consts.ts";
-import { ValidationError as YupValidationError } from "i/yup.ts";
+import { Sha256 } from "sha256";
+import * as base64 from "base64";
+import { consts } from "../utils/consts.ts";
+import { ValidationError as YupValidationError } from "yup";
 
 // COMMON
 

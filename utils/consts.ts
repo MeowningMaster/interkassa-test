@@ -1,6 +1,7 @@
-import "i/dotenv/load.ts";
-const { PORT, THIS_HOST, INTERKASSA_SECRET_KEY, INTERKASSA_TEST_KEY } = Deno.env
-  .toObject();
+import "dotenv/load.ts";
+const { PORT = 8080, THIS_HOST, INTERKASSA_SECRET_KEY, INTERKASSA_TEST_KEY } =
+  Deno.env
+    .toObject();
 
 export const interactionPath = "/interaction";
 

@@ -1,4 +1,4 @@
-import yup from "i/yup.ts";
+import yup from "yup";
 
 const validateOptions = {
   abortEarly: false,

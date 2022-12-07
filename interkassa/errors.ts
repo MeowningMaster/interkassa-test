@@ -1,4 +1,4 @@
-import { ValidationError as YupValidationError } from "i/yup.ts";
+import { ValidationError as YupValidationError } from "yup";
 
 export class InterkassaPaymentAlertError extends Error {
   constructor(message?: string) {

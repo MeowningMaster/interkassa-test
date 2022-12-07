@@ -1,9 +1,9 @@
-import { nanoid } from "i/nanoid.ts";
-import { consts } from "src/consts.ts";
+import { nanoid } from "nanoid";
+import { consts } from "./consts.ts";
 import {
   InterkassaPaymentRequest,
   PaymentDataToCheck,
-} from "./interkassa/types.ts";
+} from "../interkassa/types.ts";
 
 export const paymentPropsToCheck: PaymentDataToCheck = {
   ik_co_id: "61eb4664a9d4f77b7f55e1a4",

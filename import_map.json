@@ -1,15 +1,17 @@
 {
   "imports": {
     "src/": "./src/",
-    "i/nanoid.ts": "https://deno.land/x/nanoid/mod.ts",
-    "i/oak.ts": "https://deno.land/x/oak/mod.ts",
-    "i/sha256.ts": "https://deno.land/std@0.122.0/hash/sha256.ts",
-    "i/base64.ts": "https://deno.land/std@0.122.0/encoding/base64.ts",
-    "i/yup.ts": "https://esm.sh/yup",
-    "i/react.ts": "https://esm.sh/react@17.0.2",
-    "i/react-dom.ts": "https://esm.sh/react-dom@17.0.2",
-    "i/react-dom/server.ts": "https://esm.sh/react-dom@17.0.2/server",
-    "i/dotenv/load.ts": "https://deno.land/x/dotenv@v3.1.0/load.ts",
-    "i/forwarded-parse.ts": "https://esm.sh/forwarded-parse@2.1.2"
+    "nanoid": "https://deno.land/x/nanoid@v3.0.0/mod.ts",
+    "sha256": "https://deno.land/std@0.122.0/hash/sha256.ts",
+    "base64": "https://deno.land/std@0.122.0/encoding/base64.ts",
+    "yup": "https://esm.sh/yup@0.32.11",
+    "dotenv/load.ts": "https://deno.land/x/dotenv@v3.1.0/load.ts",
+    "forwarded-parse": "https://esm.sh/forwarded-parse@2.1.2",
+    "$fresh/": "https://deno.land/x/fresh@1.1.2/",
+    "preact": "https://esm.sh/preact@10.11.0",
+    "preact/": "https://esm.sh/preact@10.11.0/",
+    "preact-render-to-string": "https://esm.sh/*preact-render-to-string@5.2.4",
+    "@preact/signals": "https://esm.sh/*@preact/signals@1.0.3",
+    "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.0.1"
   }
 }
