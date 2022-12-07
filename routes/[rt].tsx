@@ -4,6 +4,8 @@ import { consts } from "../utils/consts.ts";
 export default function (props: PageProps) {
   const { rt } = props.params;
 
+  console.dir(consts);
+
   return (
     <>
       <p>{rt}</p>
