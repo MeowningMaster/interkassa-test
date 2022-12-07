@@ -6,7 +6,7 @@ import {
 } from "../interkassa/types.ts";
 
 export const paymentPropsToCheck: PaymentDataToCheck = {
-  ik_co_id: "63907e26d0104f33e37bf1af",
+  ik_co_id: consts.INTERKASSA.CHECKOUT.ID,
   ik_am: "115",
 };
 

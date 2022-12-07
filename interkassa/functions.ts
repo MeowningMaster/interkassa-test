@@ -39,7 +39,7 @@ export const createSignature = (readonlyData: Record<string, string>) => {
       params.push(value);
     });
 
-  const key = consts.INTERKASSA.KEYS.SECRET;
+  const key = consts.INTERKASSA.CHECKOUT.SECRET_KEY;
   params.push(key);
   const paramsStr = params.join(":");
   const hashBuffer = new Sha256().update(paramsStr).arrayBuffer();
