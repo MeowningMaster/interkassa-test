@@ -6,7 +6,7 @@ export default function (props: PageProps) {
 
   return (
     <>
-      <p>${rt}</p>
+      <p>{rt}</p>
       <a href={consts.THIS_HOST}>Return to main</a>
     </>
   );
