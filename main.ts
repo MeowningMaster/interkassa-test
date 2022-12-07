@@ -6,5 +6,8 @@
 
 import { start } from "$fresh/server.ts";
 import manifest from "./fresh.gen.ts";
+import { consts } from "./utils/consts.ts";
 
-await start(manifest);
+console.dir(consts);
+
+await start(manifest, { port: Number(consts.PORT) });

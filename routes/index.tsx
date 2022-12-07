@@ -7,6 +7,8 @@ export default function Home() {
   const req = paymentProps();
   signPaymentRequest(req);
 
+  console.dir(req);
+
   return (
     <>
       <Head>
