@@ -1,5 +1,5 @@
 import "dotenv/load.ts";
-const { PORT, CALLBACK_URL, INTERKASSA_SECRET_KEY, INTERKASSA_TEST_KEY } = Deno
+const { PORT, CALLBACK_URL, INTERKASSA_SECRET_KEY } = Deno
   .env
   .toObject();
 
@@ -11,7 +11,6 @@ export const consts = {
   INTERKASSA: {
     KEYS: {
       SECRET: INTERKASSA_SECRET_KEY,
-      TEST: INTERKASSA_TEST_KEY,
     },
     URLS: {
       INTERACTION: `${CALLBACK_URL}${interactionPath}`,
