@@ -4,8 +4,8 @@
 
 ```dotenv
 PORT = "8000"
+CALLBACK_URL="http://localhost"
 INTERKASSA_SECRET_KEY = "****************"
-INTERKASSA_TEST_KEY = "****************"
 ```
 
 # interkassa config
