@@ -1,4 +1,4 @@
-import { Handler } from "$fresh/server.ts";
+import { Handler, HandlerContext } from "$fresh/server.ts";
 import forwardedParse from "forwarded-parse";
 import { paymentPropsToCheck } from "../utils/testData.ts";
 import { checkPaymentAlert } from "../interkassa/functions.ts";
@@ -9,20 +9,32 @@ class NoForwarderHeaderError extends Error {
   }
 }
 
-const getSenderIp = (req: Request) => {
-  const forwardedHeader = req.headers.get("forwarded");
-  if (!forwardedHeader) {
-    throw new NoForwarderHeaderError();
+const behindProxy = false;
+
+const getSenderIp = (req: Request, ctx: HandlerContext) => {
+  if (behindProxy) {
+    const forwardedHeader = req.headers.get("forwarded");
+    if (!forwardedHeader) {
+      throw new NoForwarderHeaderError();
+    }
+    const parseResult = forwardedParse(forwardedHeader);
+    return parseResult[0].for;
   }
-  const parseResult = forwardedParse(forwardedHeader);
-  return parseResult[0].for;
+  const { remoteAddr } = ctx;
+  if (remoteAddr.transport === "tcp") {
+    return remoteAddr.hostname;
+  }
+  return "";
 };
 
 export const handler: Handler = async (req, ctx) => {
+  console.dir(req);
+  console.dir(ctx);
+
   const formData = await req.formData();
   const paymentAlert = Object.fromEntries(formData.entries());
   console.dir(paymentAlert);
-  const senderIp = getSenderIp(req);
+  const senderIp = getSenderIp(req, ctx);
   let replyStatus = 200;
   try {
     await checkPaymentAlert(paymentPropsToCheck, paymentAlert, senderIp);
@@ -31,9 +43,12 @@ export const handler: Handler = async (req, ctx) => {
     replyStatus = 500;
   }
   return new Response(
-    null,
+    "Interaction",
     {
       status: replyStatus,
+      headers: {
+        "Content-Type": "text/plain",
+      },
     },
   );
 };
