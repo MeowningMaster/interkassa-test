@@ -33,7 +33,9 @@ export const handler: Handler = async (req, ctx) => {
 
   const formData = await req.formData();
   const paymentAlert = Object.fromEntries(formData.entries());
+  console.groupCollapsed("Interaction");
   console.dir(paymentAlert);
+  console.groupEnd();
   const senderIp = getSenderIp(req, ctx);
   let replyStatus = 200;
   try {
