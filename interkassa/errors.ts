@@ -1,4 +1,4 @@
-import { ValidationError as YupValidationError } from "yup";
+import * as ajv from "ajv";
 
 export class InterkassaPaymentAlertError extends Error {
   constructor(message?: string) {
@@ -8,7 +8,7 @@ export class InterkassaPaymentAlertError extends Error {
 
 export class InterkassaPaymentAlertValidationError
   extends InterkassaPaymentAlertError {
-  constructor(error: YupValidationError, data: unknown) {
+  constructor(error: ajv.ValidationError, data: unknown) {
     super(`Validation failed\ndata:${data}\nerror:${error.message}`);
   }
 }

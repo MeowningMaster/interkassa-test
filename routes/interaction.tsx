@@ -1,7 +1,7 @@
 import { PageProps } from "$fresh/server.ts";
 import { Handler } from "$fresh/server.ts";
 
-export const handler: Handler = (req, ctx) => {
+export const handler: Handler = async (req, ctx) => {
   // const formParams = await ctx.request.body({ type: "form" }).value;
   // const paymentAlert = Object.fromEntries(
   //   formParams.entries(),
@@ -16,10 +16,11 @@ export const handler: Handler = (req, ctx) => {
   //   ctx.response.status = 500;
   // }
 
+  console.dir(await req.text());
   return new Response(
     null,
     {
-      status: 500,
+      status: 200,
     },
   );
 };

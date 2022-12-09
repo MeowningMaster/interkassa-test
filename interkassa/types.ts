@@ -1,36 +1,27 @@
-import * as yup from "yup";
+import { Static, Type } from "@sinclair/typebox";
 
-const ik_co_id = yup
-  .string()
-  .matches(/^[\w-]{1,36}$/)
-  .required();
-const ik_pm_no = yup
-  .string()
-  .matches(/^[\w-]{1,50}$/)
-  .required();
-const ik_cur = yup
-  .string()
-  .matches(/^.{3}$/)
-  .required();
-const ik_am = yup
-  .string()
-  .matches(/^[\d]{1,8}([.,][\d]{1,2})?$/)
-  .required();
-const ik_desc = yup
-  .string()
-  .matches(/^.{1,255}$/)
-  .required();
-const ik_exp = yup.string().matches(/^.{0,30}$/);
-const ik_ltm = yup.string().matches(/^[\d]{1,10}$/);
-const ik_cli = yup.string().matches(/^.{0,64}$/);
-const pay_token = yup.string().matches(/[\w/'":;[]{}+=-]{10,}/);
-const ik_sign = yup.string().matches(/^.{0,128}$/);
-const ik_loc = yup.string().matches(/^.{5}$/);
-const url = yup.string().url();
-const ik_act = yup.string().oneOf(["process", "payways", "payway"]);
-const ik_sub_acc_no = yup.string().matches(/^[\w-]{1,32}$/);
+const ik_co_id = Type.RegEx(/^[\w-]{1,36}$/);
+const ik_pm_no = Type.RegEx(/^[\w-]{1,50}$/);
+const ik_cur = Type.RegEx(/^.{3}$/);
+const ik_am = Type.RegEx(/^[\d]{1,8}([.,][\d]{1,2})?$/);
+const ik_desc = Type.RegEx(/^.{1,255}$/);
+const ik_exp = Type.Optional(Type.RegEx(/^.{0,30}$/));
+const ik_ltm = Type.Optional(Type.RegEx(/^[\d]{1,10}$/));
+const ik_cli = Type.Optional(Type.RegEx(/^.{0,64}$/));
+const pay_token = Type.Optional(Type.RegEx(/[\w/'":;[]{}+=-]{10,}/));
+const ik_sign = Type.Optional(Type.RegEx(/^.{0,128}$/));
+const ik_loc = Type.Optional(Type.RegEx(/^.{5}$/));
 
-export const interkassaPaymentRequest = yup.object({
+const url = Type.Optional(Type.String({ format: "uri" }));
+
+const ik_act = Type.Optional(Type.Union(
+  ["process", "payways", "payway"].map((x) => Type.Literal(x)),
+));
+const ik_sub_acc_no = Type.Optional(Type.RegEx(/^[\w-]{1,32}$/));
+const ik_payment_method = Type.Optional(Type.RegEx(/^[a-z0-9]+$/));
+const ik_payment_currency = Type.Optional(Type.RegEx(/^[A-Z]{3,7}$/));
+
+export const interkassaPaymentRequest = Type.Object({
   ik_co_id,
   ik_pm_no,
   ik_cur,
@@ -48,43 +39,45 @@ export const interkassaPaymentRequest = yup.object({
   ik_fal_u: url,
   ik_act,
   ik_sub_acc_no,
+  ik_payment_method,
+  ik_payment_currency,
 });
 
 /**
  * https://t.ly/fyx7
  */
-export type InterkassaPaymentRequest = yup.Asserts<
+export type InterkassaPaymentRequest = Static<
   typeof interkassaPaymentRequest
 >;
 
-export const interkassaPaymentAlert = yup.object({
+export const interkassaPaymentAlert = Type.Object({
   ik_co_id,
   ik_pm_no,
   ik_desc,
-  ik_pw_via: yup.string().required(),
+  ik_pw_via: Type.String(),
   ik_am,
   ik_cur,
   ik_act,
   ik_sign,
   //* Additional
-  ik_inv_id: yup.string(),
-  ik_co_prs_id: yup.string(),
-  ik_trn_id: yup.string(),
-  ik_inv_crt: yup.string(),
-  ik_inv_prc: yup.string(),
-  ik_inv_st: yup.string(),
-  ik_ps_price: yup.string(),
-  ik_co_rfn: yup.string(),
+  ik_inv_id: Type.Optional(Type.String()),
+  ik_co_prs_id: Type.Optional(Type.String()),
+  ik_trn_id: Type.Optional(Type.String()),
+  ik_inv_crt: Type.Optional(Type.String()),
+  ik_inv_prc: Type.Optional(Type.String()),
+  ik_inv_st: Type.Optional(Type.String()),
+  ik_ps_price: Type.Optional(Type.String()),
+  ik_co_rfn: Type.Optional(Type.String()),
   ik_cli,
   //* Special
-  ik_p_card_mask: yup.string(),
+  ik_p_card_mask: Type.Optional(Type.String()),
   ik_p_card_token: pay_token,
 });
 
 /**
  * https://t.ly/PYoO
  */
-export type InterkassaPaymentAlert = yup.Asserts<typeof interkassaPaymentAlert>;
+export type InterkassaPaymentAlert = Static<typeof interkassaPaymentAlert>;
 
 /**
  * Данные с нашего сервера для проверки

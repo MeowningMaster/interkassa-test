@@ -7,7 +7,7 @@ import {
 
 export const paymentPropsToCheck: PaymentDataToCheck = {
   ik_co_id: consts.INTERKASSA.CHECKOUT.ID,
-  ik_am: "115",
+  ik_am: "1",
 };
 
 export const paymentProps = (): InterkassaPaymentRequest => ({
@@ -27,4 +27,6 @@ export const paymentProps = (): InterkassaPaymentRequest => ({
   ik_fal_u: consts.INTERKASSA.URLS.FAIL,
   ik_pnd_u: consts.INTERKASSA.URLS.PENDING,
   ik_sign: undefined,
+  ik_payment_method: "test",
+  ik_payment_currency: "XTS",
 });
