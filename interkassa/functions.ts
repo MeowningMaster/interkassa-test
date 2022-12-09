@@ -75,7 +75,7 @@ export const assertPaymentAlertValidation = async (alert: unknown) => {
     if (e instanceof ajv.ValidationError) {
       throw new InterkassaPaymentAlertValidationError(e, alert);
     } else {
-      throw new InterkassaPaymentAlertError();
+      throw new InterkassaPaymentAlertError(e.message);
     }
   }
 };
@@ -110,7 +110,7 @@ export const checkPaymentAlert = async (
     if (e instanceof InterkassaPaymentAlertError) {
       throw e;
     } else {
-      throw new InterkassaPaymentAlertError();
+      throw new InterkassaPaymentAlertError(e.message);
     }
   }
 };
