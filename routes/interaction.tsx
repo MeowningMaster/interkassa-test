@@ -1,30 +1,39 @@
-import { PageProps } from "$fresh/server.ts";
 import { Handler } from "$fresh/server.ts";
+import forwardedParse from "forwarded-parse";
+import { paymentPropsToCheck } from "../utils/testData.ts";
+import { checkPaymentAlert } from "../interkassa/functions.ts";
+
+class NoForwarderHeaderError extends Error {
+  constructor() {
+    super("No forwarded header found");
+  }
+}
+
+const getSenderIp = (req: Request) => {
+  const forwardedHeader = req.headers.get("forwarded");
+  if (!forwardedHeader) {
+    throw new NoForwarderHeaderError();
+  }
+  const parseResult = forwardedParse(forwardedHeader);
+  return parseResult[0].for;
+};
 
 export const handler: Handler = async (req, ctx) => {
-  // const formParams = await ctx.request.body({ type: "form" }).value;
-  // const paymentAlert = Object.fromEntries(
-  //   formParams.entries(),
-  // );
-  // console.log("interaction", paymentAlert);
-  // const senderIp = getSenderIp(ctx.request);
-  // try {
-  //   await checkPaymentAlert(paymentPropsToCheck, paymentAlert, senderIp);
-  //   ctx.response.status = 200;
-  // } catch (e) {
-  //   console.log(e.message);
-  //   ctx.response.status = 500;
-  // }
-
-  console.dir(await req.text());
+  const formData = await req.formData();
+  const paymentAlert = Object.fromEntries(formData.entries());
+  console.dir(paymentAlert);
+  const senderIp = getSenderIp(req);
+  let replyStatus = 200;
+  try {
+    await checkPaymentAlert(paymentPropsToCheck, paymentAlert, senderIp);
+  } catch (e) {
+    console.dir(e);
+    replyStatus = 500;
+  }
   return new Response(
     null,
     {
-      status: 200,
+      status: replyStatus,
     },
   );
 };
-
-// export default function (props: PageProps) {
-
-// }
