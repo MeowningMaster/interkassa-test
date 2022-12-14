@@ -3,18 +3,16 @@ import {
   InterkassaPaymentAlertIncorrectDataError,
   InterkassaPaymentAlertIpError,
   InterkassaPaymentAlertSignatureError,
-  InterkassaPaymentAlertValidationError,
 } from "./errors.ts";
 import {
+  assertPaymentAlertValidation,
   InterkassaPaymentAlert,
-  interkassaPaymentAlert,
   InterkassaPaymentRequest,
   PaymentDataToCheck,
 } from "./types.ts";
 import { Sha256 } from "sha256";
 import * as base64 from "base64";
 import { consts } from "../utils/consts.ts";
-import * as ajv from "ajv";
 
 // COMMON
 
@@ -68,24 +66,12 @@ export const assertPaymentAlertSignature = (alert: InterkassaPaymentAlert) => {
   }
 };
 
-export const assertPaymentAlertValidation = async (alert: unknown) => {
-  try {
-    return await interkassaPaymentAlert.validate(alert);
-  } catch (e) {
-    if (e instanceof ajv.ValidationError) {
-      throw new InterkassaPaymentAlertValidationError(e, alert);
-    } else {
-      throw new InterkassaPaymentAlertError(e.message);
-    }
-  }
-};
-
 // https://t.ly/91FV
-export const checkPaymentAlert = async (
+export async function checkPaymentAlert(
   data: PaymentDataToCheck,
   rawAlert: unknown,
   alertSenderIp: string,
-) => {
+) {
   try {
     assertPaymentAlertIp(alertSenderIp);
     const alert = await assertPaymentAlertValidation(rawAlert);
@@ -113,4 +99,4 @@ export const checkPaymentAlert = async (
       throw new InterkassaPaymentAlertError(e.message);
     }
   }
-};
+}

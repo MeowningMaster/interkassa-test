@@ -1,4 +1,6 @@
 import { Static, Type } from "@sinclair/typebox";
+import * as ajv from "ajv";
+import { InterkassaPaymentAlertValidationError } from "./errors.ts";
 
 const ik_co_id = Type.RegEx(/^[\w-]{1,36}$/);
 const ik_pm_no = Type.RegEx(/^[\w-]{1,50}$/);
@@ -21,7 +23,7 @@ const ik_sub_acc_no = Type.Optional(Type.RegEx(/^[\w-]{1,32}$/));
 const ik_payment_method = Type.Optional(Type.RegEx(/^[a-z0-9]+$/));
 const ik_payment_currency = Type.Optional(Type.RegEx(/^[A-Z]{3,7}$/));
 
-export const interkassaPaymentRequest = Type.Object({
+export const interkassaPaymentRequestSchema = Type.Object({
   ik_co_id,
   ik_pm_no,
   ik_cur,
@@ -47,10 +49,10 @@ export const interkassaPaymentRequest = Type.Object({
  * https://t.ly/fyx7
  */
 export type InterkassaPaymentRequest = Static<
-  typeof interkassaPaymentRequest
+  typeof interkassaPaymentRequestSchema
 >;
 
-export const interkassaPaymentAlert = Type.Object({
+export const interkassaPaymentAlertSchema = Type.Object({
   ik_co_id,
   ik_pm_no,
   ik_desc,
@@ -77,9 +79,27 @@ export const interkassaPaymentAlert = Type.Object({
 /**
  * https://t.ly/PYoO
  */
-export type InterkassaPaymentAlert = Static<typeof interkassaPaymentAlert>;
+export type InterkassaPaymentAlert = Static<
+  typeof interkassaPaymentAlertSchema
+>;
 
 /**
  * Данные с нашего сервера для проверки
  */
 export type PaymentDataToCheck = { ik_co_id: string; ik_am: string };
+
+const validator = new ajv.default();
+
+export const interkassaPaymentAlertValidator = validator.compile<
+  InterkassaPaymentAlert
+>(
+  { ...interkassaPaymentAlertSchema, $async: true },
+);
+
+export async function assertPaymentAlertValidation(alert: unknown) {
+  try {
+    return await interkassaPaymentAlertValidator(alert);
+  } catch (e) {
+    throw new InterkassaPaymentAlertValidationError(e, alert);
+  }
+}
