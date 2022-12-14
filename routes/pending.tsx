@@ -2,9 +2,7 @@ import { PageProps } from "$fresh/server.ts";
 import { Handler } from "$fresh/server.ts";
 
 export const handler: Handler = async (req, ctx) => {
-  // const formData = await req.formData();
-  // const pendingAlert = Object.fromEntries(formData.entries());
-  // console.dir(pendingAlert);
+  console.log(`pending: ${await req.text()}`);
   return await ctx.render();
 };
 
