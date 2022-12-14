@@ -10,7 +10,7 @@ const ik_desc = Type.RegEx(/^.{1,255}$/);
 const ik_exp = Type.Optional(Type.RegEx(/^.{0,30}$/));
 const ik_ltm = Type.Optional(Type.RegEx(/^[\d]{1,10}$/));
 const ik_cli = Type.Optional(Type.RegEx(/^.{0,64}$/));
-const pay_token = Type.Optional(Type.RegEx(/[\w/'":;[]{}+=-]{10,}/));
+const pay_token = Type.Optional(Type.RegEx(/[\w/'":;\[\]{}+=-]{10,}/));
 const ik_sign = Type.Optional(Type.RegEx(/^.{0,128}$/));
 const ik_loc = Type.Optional(Type.RegEx(/^.{5}$/));
 
