@@ -2,7 +2,7 @@ import { PageProps } from "$fresh/server.ts";
 import { Handler } from "$fresh/server.ts";
 
 export const handler: Handler = async (req, ctx) => {
-  console.log(await req.text());
+  console.log(`success: ${await req.text()}`);
   return await ctx.render();
 };
 
